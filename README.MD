@@ -3,6 +3,111 @@
 pumba --help
 ```
 
+## Kill command Help
+```shell
+pumba --help kill
+```
+```output
+NAME:
+   pumba kill - kill specified containers
+
+USAGE:
+   pumba [global options] kill [command options] containers (name, list of names, RE2 regex)
+
+DESCRIPTION:
+   send termination signal to the main process inside target container(s)
+
+OPTIONS:
+   --signal value, -s value  termination signal, that will be sent by Pumba to the main process inside target container(s) (default: "SIGKILL")
+   --limit value, -l value   limit to number of container to kill (0: kill all matching) (default: 0)
+```
+
+## pause Container command Help
+```shell
+pumba --help pause
+```
+```output
+NAME:
+   pumba pause - pause all processes
+
+USAGE:
+   pumba pause [command options] containers (name, list of names, RE2 regex)
+
+DESCRIPTION:
+   pause all running processes within target containers
+
+OPTIONS:
+   --duration value, -d value  pause duration: should be smaller than recurrent interval; use with optional unit suffix: 'ms/s/m/h'
+
+```
+
+## Stop container command Help
+```shell
+pumba --help stop
+```
+```output
+NAME:
+   pumba stop - stop containers
+
+USAGE:
+   pumba stop [command options] containers (name, list of names, RE2 regex)
+
+DESCRIPTION:
+   stop the main process inside target containers, sending  SIGTERM, and then SIGKILL after a grace period
+
+OPTIONS:
+   --time value, -t value  seconds to wait for stop before killing container (default 10) (default: 10)
+
+```
+
+## Remove container command Help
+```shell
+pumba --help rm 
+```
+```output
+NAME:
+   pumba rm - remove containers
+
+USAGE:
+   pumba rm [command options] containers (name, list of names, RE2 regex)
+
+DESCRIPTION:
+   remove target containers, with links and voluems
+
+OPTIONS:
+   --force, -f    force the removal of a running container (with SIGKILL, default: true)
+   --links, -l    remove container links (default: false)
+   --volumes, -v  remove volumes associated with the container (default: true)
+
+```
+
+## Network Emulation command Help
+```shell
+pumba --help netem  
+```
+```output
+NAME:
+   Pumba netem - delay, loss, duplicate and re-order (run 'netem') packets, to emulate different network problems
+
+USAGE:
+   Pumba netem command [command options] [arguments...]
+
+COMMANDS:
+     delay      delay egress traffic
+     loss
+     duplicate
+     corrupt
+     rate       limit egress traffic
+
+OPTIONS:
+   --duration value, -d value   network emulation duration; should be smaller than recurrent interval; use with optional unit suffix: 'ms/s/m/h'
+   --interface value, -i value  network interface to apply delay on (default: "eth0")
+   --target value, -t value     target IP filter; comma separated. netem will impact only on traffic to target IP(s)
+   --tc-image value             Docker image with tc (iproute2 package); try 'gaiadocker/iproute2'
+   --help, -h                   show help
+
+```
+
 ```shell
 Pumba version v0.2.0
 NAME:
@@ -67,4 +172,11 @@ pumba --interval 3m stop queue &
 
 ```shell
 pumba --debug --interval 5m --random netem --duration 2m --interface eth2 delay --amount 2000 re2:^result
+```
+
+
+# usefull links
+
+```url
+https://medium.com/hackernoon/pumba-chaos-testing-for-docker-1b8815c6b61e
 ```
